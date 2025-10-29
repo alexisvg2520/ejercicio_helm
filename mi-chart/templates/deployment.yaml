@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-deployment-3
+  namespace: ecuaalejo2013-dev
+  labels:
+    app: mi-app
+    areanegocio: tecnologia
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mi-app-3
+  template:
+    metadata:
+      labels:
+        app: mi-app-3
+    spec:
+      containers:
+        - name: contenedor-principal-3
+          image: alexisvg2520/holamundobase:build-{{ tag }}  # <-- Reemplaza con la imagen que quieras usar
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "800Mi"
+            limits:
+              cpu: "800m"
+              memory: "1500Mi"
