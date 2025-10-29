@@ -1,0 +1,11 @@
+{{- if .Values.configmap.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.names.configmap }}
+  namespace: ecuaalejo2013-dev
+data:
+{{- range $k, $v := .Values.configmap.data }}
+  {{ $k }}: {{ $v | quote }}
+{{- end }}
+{{- end }}
