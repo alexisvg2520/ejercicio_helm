@@ -51,10 +51,14 @@ spec:
             periodSeconds: {{ .Values.probes.liveness.periodSeconds }}
             failureThreshold: {{ .Values.probes.liveness.failureThreshold }}
             timeoutSeconds: {{ .Values.probes.liveness.timeoutSeconds }}
+{{- if .Values.storage.enabled }}
           volumeMounts:
             - name: {{ .Values.storage.volumeName }}
               mountPath: {{ .Values.storage.mountPath }}
+{{- end }}
+{{- if .Values.storage.enabled }}
       volumes:
         - name: {{ .Values.storage.volumeName }}
           persistentVolumeClaim:
-            claimName: {{ .Values.names.pvc }}
+            claimName: {{ required "names.pvc must be set when storage.enabled=true" .Values.names.pvc }}
+{{- end }}
