@@ -1,3 +1,5 @@
+namespace: ecuaalejo2013-dev
+
 names:
   app: "mi-app-3"
   deployment: "mi-deployment-3"
@@ -5,6 +7,7 @@ names:
   configmap: "mi-configmap-3"
   secret: "mi-secret-3"
   hpa: "mi-hpa-3"
+  pvc: "mi-pvc-3"
 
 replicaCount: 1
 
@@ -31,6 +34,20 @@ probes:
     port: 8080
     failureThreshold: 10
     periodSeconds: 5
+  readiness:
+    path: /readiness
+    port: 8080
+    initialDelaySeconds: 0
+    periodSeconds: 5
+    failureThreshold: 3
+    timeoutSeconds: 2
+  liveness:
+    path: /health
+    port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    failureThreshold: 3
+    timeoutSeconds: 2
 
 configmap:
   enabled: true
